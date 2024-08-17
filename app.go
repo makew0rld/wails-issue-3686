@@ -3,6 +3,9 @@ package main
 import (
 	"context"
 	"fmt"
+	"log"
+
+	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
 // App struct
@@ -19,6 +22,9 @@ func NewApp() *App {
 // so we can call the runtime methods
 func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
+	runtime.OnFileDrop(a.ctx, func(x, y int, paths []string) {
+		log.Println(x, y, paths)
+	})
 }
 
 // Greet returns a greeting for the given name
